@@ -2,8 +2,7 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="2e7d82f2-b2c2-4fd5-893d-358e8626c90c" name="Default Changelist" comment="">
-      <change afterPath="$PROJECT_DIR$/.gitignore" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/.idea/vcs.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/canary_test.go" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
@@ -16,7 +15,7 @@
       <executable />
     </execution>
   </component>
-  <component name="GOROOT" path="/usr/local/go" />
+  <component name="GOROOT" path="/usr/local/Cellar/go/1.14.1/libexec" />
   <component name="Git.Settings">
     <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
   </component>
@@ -41,10 +40,18 @@
     <property name="WebServerToolWindowFactoryState" value="false" />
     <property name="aspect.path.notification.shown" value="true" />
     <property name="go.import.settings.migrated" value="true" />
+    <property name="node.js.detected.package.eslint" value="true" />
+    <property name="node.js.detected.package.tslint" value="true" />
+    <property name="node.js.path.for.package.eslint" value="project" />
+    <property name="node.js.path.for.package.tslint" value="project" />
+    <property name="node.js.selected.package.eslint" value="(autodetect)" />
+    <property name="node.js.selected.package.tslint" value="(autodetect)" />
     <property name="nodejs_interpreter_path.stuck_in_default_project" value="/usr/local/bin/node" />
     <property name="nodejs_npm_path_reset_for_default_project" value="true" />
+    <property name="project.structure.last.edited" value="Project" />
+    <property name="project.structure.proportion" value="0.0" />
+    <property name="project.structure.side.proportion" value="0.2" />
     <property name="settings.editor.selected.configurable" value="configurable.group.appearance" />
-    <property name="settings.editor.splitter.proportion" value="0.2" />
   </component>
   <component name="RunManager">
     <configuration default="true" type="Applet" factoryName="Applet">
@@ -96,7 +103,8 @@
       <option name="number" value="Default" />
       <option name="presentableId" value="Default" />
       <updated>1585357333952</updated>
-      <workItem from="1585357335352" duration="140000" />
+      <workItem from="1585357335352" duration="180000" />
+      <workItem from="1585357518434" duration="1750000" />
     </task>
     <servers />
   </component>
@@ -104,9 +112,17 @@
     <option name="version" value="1" />
   </component>
   <component name="WindowStateProjectService">
+    <state x="503" y="105" key="#GOROOT" timestamp="1585358882792">
+      <screen x="0" y="23" width="1440" height="808" />
+    </state>
+    <state x="503" y="105" key="#GOROOT/0.23.1440.808@0.23.1440.808" timestamp="1585358882792" />
     <state x="270" y="79" key="#Go_Linter" timestamp="1585357407737">
       <screen x="0" y="23" width="1440" height="808" />
     </state>
     <state x="270" y="79" key="#Go_Linter/0.23.1440.808@0.23.1440.808" timestamp="1585357407737" />
+    <state x="404" y="23" key="SettingsEditor" timestamp="1585358875682">
+      <screen x="0" y="23" width="1440" height="808" />
+    </state>
+    <state x="404" y="23" key="SettingsEditor/0.23.1440.808@0.23.1440.808" timestamp="1585358875682" />
   </component>
 </project>
