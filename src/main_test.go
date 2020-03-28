@@ -8,7 +8,6 @@ import (
 	"testing"
 )
 
-
 func TestCanary(t *testing.T) {
 	assert.Equal(t, true, true)
 }
@@ -84,4 +83,3 @@ func TestPromptTotalDifferentAmount(t *testing.T) {
 
 	assert.Contains(t, string(writer.Bytes()), "  Total: $111.00\n")
 }
-
