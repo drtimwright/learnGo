@@ -1,9 +1,9 @@
 
 # Learning go...
 
-### Running the app
+### Running an exercise
 
-`go run ./src/main.go`
+`go run ./src/<exercise_XX>/main.go`
 
 ### Running tests:
 
