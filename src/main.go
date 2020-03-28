@@ -14,12 +14,12 @@ func DoTheTipStuff(reader *io.Reader, writer io.Writer) {
 	bufReader := bufio.NewReader(*reader)
 
 	fmt.Fprintln(writer, "Input:")
-	fmt.Fprintln(writer, "  bill amount:")
+	fmt.Fprint(writer, "  bill amount: ")
 	billAmt, _ := bufReader.ReadString('\n')
 	billAmtFloat, _ := strconv.ParseFloat(strings.Trim(billAmt, " \n"), 64)
 	billAmtInt := int64(billAmtFloat * 100.0)
 
-	fmt.Fprintln(writer, "  tip rate:")
+	fmt.Fprint(writer, "  tip rate: ")
 	tipPercentage, _ := bufReader.ReadString('\n')
 	tipPercentageInt, _ := strconv.ParseInt(strings.Trim(tipPercentage, " \n"), 10, 64)
 

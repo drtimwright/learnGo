@@ -28,7 +28,7 @@ func TestAllOutput(t *testing.T) {
 
 	DoTheTipStuff(&reader, writer)
 
-	assert.Contains(t, string(writer.Bytes()), "  bill amount:\n")
+	assert.Contains(t, string(writer.Bytes()), "  bill amount: ")
 }
 
 func TestPromptTipPercent(t *testing.T) {
@@ -37,7 +37,7 @@ func TestPromptTipPercent(t *testing.T) {
 
 	DoTheTipStuff(&reader, writer)
 
-	assert.Contains(t, string(writer.Bytes()), "  tip rate:\n")
+	assert.Contains(t, string(writer.Bytes()), "  tip rate: ")
 }
 
 func TestPromptExpectedResult(t *testing.T) {
