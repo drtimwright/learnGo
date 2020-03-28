@@ -1,5 +1,5 @@
 
-package main
+package canary
 
 import (
 	"github.com/stretchr/testify/assert"
