@@ -1,8 +1,16 @@
 package main
 
-import "fmt"
-import "./tip"
+import (
+	"fmt"
+	"io"
+	"os"
+)
+
+func DoTheTipStuff(reader *io.Reader, writer io.Writer) {
+	fmt.Fprintln(writer, "Input:")
+}
 
 func main() {
-	fmt.Println(tip.CalculateTip(100, 15))
+	reader := io.Reader(os.Stdin)
+	DoTheTipStuff(&reader, os.Stdout)
 }
