@@ -23,15 +23,15 @@ func DoTheTipStuff(reader *io.Reader, writer io.Writer) {
 	totalAmount, tipAmount := tip.CalculateTip(convertDollarsToCents(billAmountDollars), tipPercentageInt)
 
 	fmt.Fprintln(writer, "Expected result:")
-	fmt.Fprintln(writer, "  Tip: "+formatCentAmount(tipAmount))
-	fmt.Fprintln(writer, "  Total: "+formatCentAmount(totalAmount))
+	fmt.Fprintln(writer, "  Tip: "+formatCurrency(tipAmount))
+	fmt.Fprintln(writer, "  Total: "+formatCurrency(totalAmount))
 }
 
 func convertDollarsToCents(billAmtFloat float64) int64 {
 	return int64(billAmtFloat * 100.0)
 }
 
-func formatCentAmount(tipAmount int64) string {
+func formatCurrency(tipAmount int64) string {
 	return "$" + strconv.FormatFloat(float64(tipAmount)/100, 'f', 2, 64)
 }
 
