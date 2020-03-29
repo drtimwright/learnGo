@@ -48,6 +48,5 @@ func getFloat(bufReader *bufio.Reader) (float64, error) {
 }
 
 func main() {
-	reader := io.Reader(os.Stdin)
-	DoTheTipStuff(reader, os.Stdout)
+	DoTheTipStuff(os.Stdin, os.Stdout)
 }
