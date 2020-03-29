@@ -10,8 +10,8 @@ import (
 	"strings"
 )
 
-func DoTheTipStuff(reader *io.Reader, writer io.Writer) {
-	bufReader := bufio.NewReader(*reader)
+func DoTheTipStuff(reader io.Reader, writer io.Writer) {
+	bufReader := bufio.NewReader(reader)
 
 	fmt.Fprintln(writer, "Input:")
 	fmt.Fprint(writer, "  bill amount: ")
@@ -49,5 +49,5 @@ func getFloat(bufReader *bufio.Reader) (float64, error) {
 
 func main() {
 	reader := io.Reader(os.Stdin)
-	DoTheTipStuff(&reader, os.Stdout)
+	DoTheTipStuff(reader, os.Stdout)
 }
