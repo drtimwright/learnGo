@@ -1,6 +1,7 @@
 package main
 
 import (
+	"bufio"
 	"bytes"
 	"fmt"
 	"github.com/stretchr/testify/assert"
@@ -9,10 +10,16 @@ import (
 	"testing"
 )
 
-func EchoQuote(reader io.Reader, writer io.Writer) {
+func EchoQuote(r io.Reader, w io.Writer) {
+	reader := bufio.NewReader(r)
 
-	fmt.Fprint(writer, "What is the quote? ")
-	fmt.Fprint(writer, "Who said it? ")
+	fmt.Fprint(w, "What is the quote? ")
+	quote, _ := reader.ReadString('\n')
+
+	fmt.Fprint(w, "Who said it? ")
+	author, _ := reader.ReadString('\n')
+
+	fmt.Fprintln(w, strings.Trim(author, "\n")+" says, \""+strings.Trim(quote, "\n")+"\"")
 }
 
 func TestCanary(t *testing.T) {
@@ -39,3 +46,12 @@ func TestAuthorPrompt(t *testing.T) {
 	assert.Contains(t, actual, "Who said it? ")
 }
 
+func TestOutputQuote1(t *testing.T) {
+	reader := io.Reader(strings.NewReader("Quote\nTim\n"))
+	writer := new(bytes.Buffer)
+
+	EchoQuote(reader, writer)
+
+	actual := string(writer.Bytes())
+	assert.Contains(t, actual, "Tim says, \"Quote\"")
+}
