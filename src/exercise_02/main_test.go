@@ -6,10 +6,10 @@ import (
 	"fmt"
 	"github.com/stretchr/testify/assert"
 	"io"
+	"strconv"
 	"strings"
 	"testing"
 )
-
 
 func EchoInputStringLength(reader io.Reader, writer io.Writer) {
 	bufReader := bufio.NewReader(reader)
@@ -18,7 +18,9 @@ func EchoInputStringLength(reader io.Reader, writer io.Writer) {
 	name, _ := bufReader.ReadString('\n')
 	name = strings.Trim(name, " \n")
 
-	fmt.Fprint(writer, name + " has 5 characters\n")
+	nameLength := int64(len(name))
+
+	fmt.Fprint(writer, name+" has "+strconv.FormatInt(nameLength, 10)+" characters\n")
 }
 
 func TestCanary(t *testing.T) {
@@ -53,4 +55,14 @@ func TestStringLength5NotHomer(t *testing.T) {
 
 	actual := string(writer.Bytes())
 	assert.Contains(t, actual, "James has 5 characters\n")
+}
+
+func TestStringLength3(t *testing.T) {
+	reader := io.Reader(strings.NewReader("Tim\n"))
+	writer := new(bytes.Buffer)
+
+	EchoInputStringLength(reader, writer)
+
+	actual := string(writer.Bytes())
+	assert.Contains(t, actual, "Tim has 3 characters\n")
 }
