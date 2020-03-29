@@ -66,3 +66,13 @@ func TestStringLength3(t *testing.T) {
 	actual := string(writer.Bytes())
 	assert.Contains(t, actual, "Tim has 3 characters\n")
 }
+
+func TestStringLength0(t *testing.T) {
+	reader := io.Reader(strings.NewReader("\n"))
+	writer := new(bytes.Buffer)
+
+	EchoInputStringLength(reader, writer)
+
+	actual := string(writer.Bytes())
+	assert.Contains(t, actual, " has 0 characters\n")
+}
