@@ -18,7 +18,7 @@ func EchoQuote(r io.Reader, writer io.Writer) {
 }
 
 func printQuote(writer io.Writer, author string, quote string) (int, error) {
-	return fmt.Fprintln(writer, strings.Trim(author, "\n")+" says, \""+strings.Trim(quote, "\n")+"\"")
+	return fmt.Fprintln(writer, strings.Trim(author, "\n"), "says, \""+strings.Trim(quote, "\n")+"\"")
 }
 
 func getPromptedString(w io.Writer, reader *bufio.Reader, prompt string) string {
