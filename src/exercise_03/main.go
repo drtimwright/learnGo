@@ -8,16 +8,23 @@ import (
 	"strings"
 )
 
-func EchoQuote(r io.Reader, w io.Writer) {
+func EchoQuote(r io.Reader, writer io.Writer) {
 	reader := bufio.NewReader(r)
 
-	fmt.Fprint(w, "What is the quote? ")
+	quote := getPromptedString(writer, reader, "What is the quote? ")
+	author := getPromptedString(writer, reader, "Who said it? ")
+
+	printQuote(writer, author, quote)
+}
+
+func printQuote(writer io.Writer, author string, quote string) (int, error) {
+	return fmt.Fprintln(writer, strings.Trim(author, "\n")+" says, \""+strings.Trim(quote, "\n")+"\"")
+}
+
+func getPromptedString(w io.Writer, reader *bufio.Reader, prompt string) string {
+	fmt.Fprint(w, prompt)
 	quote, _ := reader.ReadString('\n')
-
-	fmt.Fprint(w, "Who said it? ")
-	author, _ := reader.ReadString('\n')
-
-	fmt.Fprintln(w, strings.Trim(author, "\n")+" says, \""+strings.Trim(quote, "\n")+"\"")
+	return quote
 }
 
 func main() {
