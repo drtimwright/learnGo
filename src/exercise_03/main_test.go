@@ -1,26 +1,12 @@
 package main
 
 import (
-	"bufio"
 	"bytes"
-	"fmt"
 	"github.com/stretchr/testify/assert"
 	"io"
 	"strings"
 	"testing"
 )
-
-func EchoQuote(r io.Reader, w io.Writer) {
-	reader := bufio.NewReader(r)
-
-	fmt.Fprint(w, "What is the quote? ")
-	quote, _ := reader.ReadString('\n')
-
-	fmt.Fprint(w, "Who said it? ")
-	author, _ := reader.ReadString('\n')
-
-	fmt.Fprintln(w, strings.Trim(author, "\n")+" says, \""+strings.Trim(quote, "\n")+"\"")
-}
 
 func TestCanary(t *testing.T) {
 	assert.Equal(t, true, true)
