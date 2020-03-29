@@ -19,8 +19,11 @@ func EchoInputStringLength(reader io.Reader, writer io.Writer) {
 	name = strings.Trim(name, " \n")
 
 	nameLength := int64(len(name))
-
-	fmt.Fprint(writer, name+" has "+strconv.FormatInt(nameLength, 10)+" characters\n")
+	if nameLength > 0 {
+		fmt.Fprintln(writer, name+" has "+strconv.FormatInt(nameLength, 10)+" characters\n")
+	} else {
+		fmt.Fprintln(writer, "You must enter a non-empty string")
+	}
 }
 
 func TestCanary(t *testing.T) {
@@ -74,5 +77,5 @@ func TestStringLength0(t *testing.T) {
 	EchoInputStringLength(reader, writer)
 
 	actual := string(writer.Bytes())
-	assert.Contains(t, actual, " has 0 characters\n")
+	assert.Contains(t, actual, "You must enter a non-empty string\n")
 }
