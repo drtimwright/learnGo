@@ -16,6 +16,7 @@ func MadLib(reader io.Reader, writer *bytes.Buffer) {
 	bufReader := bufio.NewReader(reader)
 
 	noun := libs.GetPromptedString(writer, bufReader,"Enter a noun: ")
+	libs.GetPromptedString(writer, bufReader,"Enter a verb: ")
 
 	fmt.Fprintln(writer, "Do you walk your blue", noun, "quickly? That's hilarious")
 }
@@ -53,4 +54,15 @@ func TestNounPrompt(t *testing.T) {
 	actual := string(writer.Bytes())
 	assert.Contains(t, actual, "Enter a noun: ")
 }
+
+func TestVerbPrompt(t *testing.T) {
+	reader := io.Reader(strings.NewReader("cat\nrun\nblue\nquickly\n"))
+	writer := new(bytes.Buffer)
+
+	MadLib(reader, writer)
+
+	actual := string(writer.Bytes())
+	assert.Contains(t, actual, "Enter a verb: ")
+}
+
 
