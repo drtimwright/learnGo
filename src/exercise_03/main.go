@@ -1,11 +1,11 @@
 package main
 
 import (
+	"../libs"
 	"bufio"
 	"fmt"
 	"io"
 	"os"
-	"../libs"
 )
 
 func EchoQuote(r io.Reader, writer io.Writer) {

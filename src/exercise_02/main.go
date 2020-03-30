@@ -1,12 +1,12 @@
 package main
 
 import (
+	"../libs"
 	"bufio"
 	"fmt"
 	"io"
 	"os"
 	"strconv"
-	"../libs"
 )
 
 func EchoInputStringLength(reader io.Reader, writer io.Writer) {

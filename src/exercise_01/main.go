@@ -1,11 +1,11 @@
 package main
 
 import (
+	"../libs"
 	"bufio"
 	"fmt"
 	"io"
 	"os"
-	"../libs"
 )
 
 func EchoName(reader io.Reader, writer io.Writer) {

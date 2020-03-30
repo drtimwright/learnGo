@@ -30,7 +30,6 @@ func MadLib(reader io.Reader, writer io.Writer) {
 	templ.Execute(writer, data)
 }
 
-
 func main() {
 	MadLib(os.Stdin, os.Stdout)
 }
