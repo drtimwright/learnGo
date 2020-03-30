@@ -17,8 +17,9 @@ func MadLib(reader io.Reader, writer *bytes.Buffer) {
 	noun := libs.GetPromptedString(writer, bufReader, "Enter a noun: ")
 	verb := libs.GetPromptedString(writer, bufReader, "Enter a verb: ")
 	adjective := libs.GetPromptedString(writer, bufReader, "Enter an adjective: ")
+	adverb := libs.GetPromptedString(writer, bufReader, "Enter an adverb: ")
 
-	fmt.Fprintln(writer, "Do you", verb, "your", adjective, noun, "quickly? That's hilarious")
+	fmt.Fprintln(writer, "Do you", verb, "your", adjective, noun, adverb + "? That's hilarious")
 }
 
 func TestCanary(t *testing.T) {
@@ -93,4 +94,24 @@ func TestOutputAdjective(t *testing.T) {
 
 	actual := string(writer.Bytes())
 	assert.Contains(t, actual, "Do you walk your red dog quickly? That's hilarious")
+}
+
+func TestAdverbPrompt(t *testing.T) {
+	reader := io.Reader(strings.NewReader("dog\nwalk\nblue\nquickly\n"))
+	writer := new(bytes.Buffer)
+
+	MadLib(reader, writer)
+
+	actual := string(writer.Bytes())
+	assert.Contains(t, actual, "Enter an adverb: ")
+}
+
+func TestOutputAdverb(t *testing.T) {
+	reader := io.Reader(strings.NewReader("dog\nwalk\nblue\nslowly\n"))
+	writer := new(bytes.Buffer)
+
+	MadLib(reader, writer)
+
+	actual := string(writer.Bytes())
+	assert.Contains(t, actual, "Do you walk your blue dog slowly? That's hilarious")
 }
