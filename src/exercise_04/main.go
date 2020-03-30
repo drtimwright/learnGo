@@ -1,10 +1,10 @@
 package main
 
 import (
-	"bufio"
-	"bytes"
-	"io"
 	"../libs"
+	"bufio"
+	"io"
+	"os"
 	"text/template"
 )
 
@@ -15,7 +15,7 @@ type MadLibData struct {
 	Adverb    string
 }
 
-func MadLib(reader io.Reader, writer *bytes.Buffer) {
+func MadLib(reader io.Reader, writer io.Writer) {
 	bufReader := bufio.NewReader(reader)
 
 	noun := libs.GetPromptedString(writer, bufReader, "Enter a noun: ")
@@ -28,4 +28,9 @@ func MadLib(reader io.Reader, writer *bytes.Buffer) {
 	templ, _ := template.New("mad lib template").Parse("Do you {{ .Verb }} your {{ .Adjective }} {{ .Noun }} {{ .Adverb }}? That's hilarious")
 
 	templ.Execute(writer, data)
+}
+
+
+func main() {
+	MadLib(os.Stdin, os.Stdout)
 }
