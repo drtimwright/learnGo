@@ -8,19 +8,14 @@ import (
 	"io"
 	"strings"
 	"testing"
+	"../libs"
 )
 
-
-func getPromptedString(w io.Writer, reader *bufio.Reader, prompt string) string {
-	fmt.Fprint(w, prompt)
-	quote, _ := reader.ReadString('\n')
-	return strings.Trim(quote, "\n")
-}
 
 func MadLib(reader io.Reader, writer *bytes.Buffer) {
 	bufReader := bufio.NewReader(reader)
 
-	noun := getPromptedString(writer, bufReader,"")
+	noun := libs.GetPromptedString(writer, bufReader,"")
 
 	fmt.Fprintln(writer, "Do you walk your blue", noun, "quickly? That's hilarious")
 }
