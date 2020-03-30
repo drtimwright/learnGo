@@ -20,6 +20,7 @@ func SimpleMath(reader io.Reader, writer *bytes.Buffer) {
 	printComputation(writer, firstNumber, "+", secondNumber, firstNumber+secondNumber)
 	printComputation(writer, firstNumber, "-", secondNumber, firstNumber-secondNumber)
 	printComputation(writer, firstNumber, "*", secondNumber, firstNumber*secondNumber)
+	printComputation(writer, firstNumber, "/", secondNumber, firstNumber/secondNumber)
 }
 
 func printComputation(writer *bytes.Buffer, firstNumber int64, operator string, secondNumber int64, total int64) (int, error) {
@@ -98,5 +99,15 @@ func TestMultiply(t *testing.T) {
 
 	actual := string(writer.Bytes())
 	assert.Contains(t, actual, "10 * 5 = 50\n")
+}
+
+func TestDivide(t *testing.T) {
+	reader := io.Reader(strings.NewReader("10\n5\n"))
+	writer := new(bytes.Buffer)
+
+	SimpleMath(reader, writer)
+
+	actual := string(writer.Bytes())
+	assert.Contains(t, actual, "10 / 5 = 2\n")
 }
 
