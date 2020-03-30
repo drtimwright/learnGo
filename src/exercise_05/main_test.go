@@ -22,6 +22,10 @@ func (sm SimpleMathData) Added() int64 {
 	return sm.Num1 + sm.Num2
 }
 
+func (sm SimpleMathData) Subtracted() int64 {
+	return sm.Num1 - sm.Num2
+}
+
 func SimpleMath(reader io.Reader, writer *bytes.Buffer) {
 	bufReader := bufio.NewReader(reader)
 	firstNumber, _ := strconv.ParseInt(libs.GetPromptedString(writer, bufReader, "What is the first number? "), 10, 64)
@@ -29,11 +33,11 @@ func SimpleMath(reader io.Reader, writer *bytes.Buffer) {
 
 	data := SimpleMathData{firstNumber, secondNumber}
 
-	templ, _ := template.New("simple math template").Parse("{{.Num1}} + {{.Num2}} = {{.Added}}\n")
+	templ, _ := template.New("simple math template").Parse("{{.Num1}} + {{.Num2}} = {{.Added}}\n{{.Num1}} - {{.Num2}} = {{.Subtracted}}\n")
 	templ.Execute(writer, data)
 
 	//printComputation(writer, firstNumber, "+", secondNumber, firstNumber+secondNumber)
-	printComputation(writer, firstNumber, "-", secondNumber, firstNumber-secondNumber)
+	//printComputation(writer, firstNumber, "-", secondNumber, firstNumber-secondNumber)
 	printComputation(writer, firstNumber, "*", secondNumber, firstNumber*secondNumber)
 	printComputation(writer, firstNumber, "/", secondNumber, firstNumber/secondNumber)
 }
