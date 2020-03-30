@@ -1,12 +1,12 @@
 package main
 
 import (
+	"../libs"
 	"bufio"
 	"bytes"
 	"fmt"
 	"github.com/stretchr/testify/assert"
 	"io"
-	"../libs"
 	"strconv"
 	"strings"
 	"testing"
@@ -15,11 +15,14 @@ import (
 func SimpleMath(reader io.Reader, writer *bytes.Buffer) {
 	bufReader := bufio.NewReader(reader)
 	firstNumber, _ := strconv.ParseInt(libs.GetPromptedString(writer, bufReader, "What is the first number? "), 10, 64)
-	libs.GetPromptedString(writer, bufReader, "What is the second number? ")
+	secondNumber, _ := strconv.ParseInt(libs.GetPromptedString(writer, bufReader, "What is the second number? "), 10, 64)
 
-	total := firstNumber + 10
+	printComputation(writer, firstNumber, "+", secondNumber, firstNumber+secondNumber)
+	printComputation(writer, firstNumber, "-", secondNumber, firstNumber-secondNumber)
+}
 
-	fmt.Fprintln(writer, strconv.FormatInt(firstNumber, 10), "+ 10 =", strconv.FormatInt(total, 10))
+func printComputation(writer *bytes.Buffer, firstNumber int64, operator string, secondNumber int64, total int64) (int, error) {
+	return fmt.Fprintln(writer, strconv.FormatInt(firstNumber, 10), operator, strconv.FormatInt(secondNumber, 10), "=", strconv.FormatInt(total, 10))
 }
 
 func TestCanary(t *testing.T) {
@@ -65,3 +68,24 @@ func TestAddition2(t *testing.T) {
 	actual := string(writer.Bytes())
 	assert.Contains(t, actual, "20 + 10 = 30\n")
 }
+
+func TestAddition3(t *testing.T) {
+	reader := io.Reader(strings.NewReader("20\n30\n"))
+	writer := new(bytes.Buffer)
+
+	SimpleMath(reader, writer)
+
+	actual := string(writer.Bytes())
+	assert.Contains(t, actual, "20 + 30 = 50\n")
+}
+
+func TestSubtraction(t *testing.T) {
+	reader := io.Reader(strings.NewReader("10\n5\n"))
+	writer := new(bytes.Buffer)
+
+	SimpleMath(reader, writer)
+
+	actual := string(writer.Bytes())
+	assert.Contains(t, actual, "10 - 5 = 5\n")
+}
+
