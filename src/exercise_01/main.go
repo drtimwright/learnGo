@@ -5,14 +5,12 @@ import (
 	"fmt"
 	"io"
 	"os"
-	"strings"
+	"../libs"
 )
 
 func EchoName(reader io.Reader, writer io.Writer) {
 	bufReader := bufio.NewReader(reader)
-	fmt.Fprint(writer, "What is your name? ")
-	name, _ := bufReader.ReadString('\n')
-	name = strings.Trim(name, " \n")
+	name := libs.GetPromptedString(writer, bufReader, "What is your name? ")
 	fmt.Fprintln(writer, "Hello, "+name+", nice to meet you!")
 }
 

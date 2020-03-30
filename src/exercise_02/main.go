@@ -6,15 +6,13 @@ import (
 	"io"
 	"os"
 	"strconv"
-	"strings"
+	"../libs"
 )
 
 func EchoInputStringLength(reader io.Reader, writer io.Writer) {
 	bufReader := bufio.NewReader(reader)
 
-	fmt.Fprint(writer, "What is the input string? ")
-	name, _ := bufReader.ReadString('\n')
-	name = strings.Trim(name, " \n")
+	name := libs.GetPromptedString(writer, bufReader, "What is the input string? ")
 
 	nameLength := int64(len(name))
 	if nameLength > 0 {
