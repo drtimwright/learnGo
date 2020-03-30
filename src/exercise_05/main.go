@@ -1,11 +1,11 @@
 package main
 
 import (
-	"bufio"
-	"bytes"
-	"io"
-	"strconv"
 	"../libs"
+	"bufio"
+	"io"
+	"os"
+	"strconv"
 	"text/template"
 )
 
@@ -30,7 +30,7 @@ func (sm SimpleMathData) Divided() int64 {
 	return sm.Num1 / sm.Num2
 }
 
-func SimpleMath(reader io.Reader, writer *bytes.Buffer) {
+func SimpleMath(reader io.Reader, writer io.Writer) {
 	bufReader := bufio.NewReader(reader)
 	firstNumber, _ := strconv.ParseInt(libs.GetPromptedString(writer, bufReader, "What is the first number? "), 10, 64)
 	secondNumber, _ := strconv.ParseInt(libs.GetPromptedString(writer, bufReader, "What is the second number? "), 10, 64)
@@ -41,3 +41,6 @@ func SimpleMath(reader io.Reader, writer *bytes.Buffer) {
 	templ.Execute(writer, data)
 }
 
+func main() {
+	SimpleMath(os.Stdin, os.Stdout)
+}
