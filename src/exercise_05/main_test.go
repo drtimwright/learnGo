@@ -7,17 +7,19 @@ import (
 	"github.com/stretchr/testify/assert"
 	"io"
 	"../libs"
+	"strconv"
 	"strings"
 	"testing"
 )
 
-
 func SimpleMath(reader io.Reader, writer *bytes.Buffer) {
 	bufReader := bufio.NewReader(reader)
-	libs.GetPromptedString(writer, bufReader, "What is the first number? ")
+	firstNumber, _ := strconv.ParseInt(libs.GetPromptedString(writer, bufReader, "What is the first number? "), 10, 64)
 	libs.GetPromptedString(writer, bufReader, "What is the second number? ")
 
-	fmt.Fprintln(writer, "10 + 10 = 20")
+	total := firstNumber + 10
+
+	fmt.Fprintln(writer, strconv.FormatInt(firstNumber, 10), "+ 10 =", strconv.FormatInt(total, 10))
 }
 
 func TestCanary(t *testing.T) {
@@ -52,4 +54,14 @@ func TestAddition(t *testing.T) {
 
 	actual := string(writer.Bytes())
 	assert.Contains(t, actual, "10 + 10 = 20\n")
+}
+
+func TestAddition2(t *testing.T) {
+	reader := io.Reader(strings.NewReader("20\n10\n"))
+	writer := new(bytes.Buffer)
+
+	SimpleMath(reader, writer)
+
+	actual := string(writer.Bytes())
+	assert.Contains(t, actual, "20 + 10 = 30\n")
 }
