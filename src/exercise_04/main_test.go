@@ -1,6 +1,7 @@
 package main
 
 import (
+	"bufio"
 	"bytes"
 	"fmt"
 	"github.com/stretchr/testify/assert"
@@ -9,9 +10,19 @@ import (
 	"testing"
 )
 
-func MadLib(reader io.Reader, writer *bytes.Buffer) {
 
-	fmt.Fprintln(writer, "Do you walk your blue dog quickly? That's hilarious")
+func getPromptedString(w io.Writer, reader *bufio.Reader, prompt string) string {
+	fmt.Fprint(w, prompt)
+	quote, _ := reader.ReadString('\n')
+	return strings.Trim(quote, "\n")
+}
+
+func MadLib(reader io.Reader, writer *bytes.Buffer) {
+	bufReader := bufio.NewReader(reader)
+
+	noun := getPromptedString(writer, bufReader,"")
+
+	fmt.Fprintln(writer, "Do you walk your blue", noun, "quickly? That's hilarious")
 }
 
 func TestCanary(t *testing.T) {
@@ -27,3 +38,14 @@ func TestOutput1(t *testing.T) {
 	actual := string(writer.Bytes())
 	assert.Contains(t, actual, "Do you walk your blue dog quickly? That's hilarious")
 }
+
+func TestOutputNoun(t *testing.T) {
+	reader := io.Reader(strings.NewReader("cat\nwalk\nblue\nquickly\n"))
+	writer := new(bytes.Buffer)
+
+	MadLib(reader, writer)
+
+	actual := string(writer.Bytes())
+	assert.Contains(t, actual, "Do you walk your blue cat quickly? That's hilarious")
+}
+
