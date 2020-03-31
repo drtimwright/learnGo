@@ -23,7 +23,7 @@ func RetirementCalculator(reader io.Reader, writer *bytes.Buffer, currentYear in
 	retirementDate := currentYear + numYears
 
 	fmt.Fprintln(writer, "You have", numYears, "years left until you can retire.")
-	fmt.Fprintln(writer, "It's 2015, so you can retire in", strconv.FormatInt(retirementDate, 10)+".")
+	fmt.Fprintln(writer, "It's", strconv.FormatInt(currentYear, 10)+",", "so you can retire in", strconv.FormatInt(retirementDate, 10)+".")
 }
 
 func TestCanary(t *testing.T) {
@@ -78,4 +78,14 @@ func TestRetirementDate2045(t *testing.T) {
 
 	actual := string(writer.Bytes())
 	assert.Contains(t, actual, "It's 2015, so you can retire in 2045.\n")
+}
+
+func TestRetirementDateDifferentNowYear(t *testing.T) {
+	reader := io.Reader(strings.NewReader("25\n65\n"))
+	writer := new(bytes.Buffer)
+
+	RetirementCalculator(reader, writer, 2005)
+
+	actual := string(writer.Bytes())
+	assert.Contains(t, actual, "It's 2005, so you can retire in 2045.\n")
 }
