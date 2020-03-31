@@ -7,6 +7,7 @@ import (
 	"os"
 	"strconv"
 	"../libs"
+	"time"
 )
 
 func RetirementCalculator(reader io.Reader, writer io.Writer, currentYear int64) {
@@ -25,5 +26,5 @@ func RetirementCalculator(reader io.Reader, writer io.Writer, currentYear int64)
 
 
 func main() {
-	RetirementCalculator(os.Stdin, os.Stdout, 2018)
+	RetirementCalculator(os.Stdin, os.Stdout, int64(time.Now().Year()))
 }
