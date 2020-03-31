@@ -1,12 +1,12 @@
 package main
 
 import (
+	"../libs"
 	"bufio"
 	"fmt"
 	"io"
 	"os"
 	"strconv"
-	"../libs"
 	"time"
 )
 
@@ -23,7 +23,6 @@ func RetirementCalculator(reader io.Reader, writer io.Writer, currentYear int64)
 	fmt.Fprintln(writer, "You have", numYears, "years left until you can retire.")
 	fmt.Fprintln(writer, "It's", strconv.FormatInt(currentYear, 10)+",", "so you can retire in", strconv.FormatInt(retirementDate, 10)+".")
 }
-
 
 func main() {
 	RetirementCalculator(os.Stdin, os.Stdout, int64(time.Now().Year()))
