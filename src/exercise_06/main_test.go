@@ -6,6 +6,7 @@ import (
 	"fmt"
 	"github.com/stretchr/testify/assert"
 	"io"
+	"strconv"
 	"strings"
 	"testing"
 	"../libs"
@@ -19,9 +20,10 @@ func RetirementCalculator(reader io.Reader, writer *bytes.Buffer, currentYear in
 	retirementAge, _ := libs.GetPromptedNumber(writer, bufReader, "At what age would you like to retire? ")
 
 	numYears := retirementAge - currentAge
+	retirementDate := currentYear + numYears
 
 	fmt.Fprintln(writer, "You have", numYears, "years left until you can retire.")
-	fmt.Fprintln(writer, "It's 2015, so you can retire in 2055.")
+	fmt.Fprintln(writer, "It's 2015, so you can retire in", strconv.FormatInt(retirementDate, 10)+".")
 }
 
 func TestCanary(t *testing.T) {
@@ -66,4 +68,14 @@ func TestRetirementDate(t *testing.T) {
 
 	actual := string(writer.Bytes())
 	assert.Contains(t, actual, "It's 2015, so you can retire in 2055.\n")
+}
+
+func TestRetirementDate2045(t *testing.T) {
+	reader := io.Reader(strings.NewReader("25\n55\n"))
+	writer := new(bytes.Buffer)
+
+	RetirementCalculator(reader, writer, 2015)
+
+	actual := string(writer.Bytes())
+	assert.Contains(t, actual, "It's 2015, so you can retire in 2045.\n")
 }
