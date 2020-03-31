@@ -2,14 +2,14 @@ package main
 
 import (
 	"bufio"
-	"bytes"
 	"fmt"
 	"io"
+	"os"
 	"strconv"
 	"../libs"
 )
 
-func RetirementCalculator(reader io.Reader, writer *bytes.Buffer, currentYear int64) {
+func RetirementCalculator(reader io.Reader, writer io.Writer, currentYear int64) {
 
 	bufReader := bufio.NewReader(reader)
 
@@ -23,3 +23,7 @@ func RetirementCalculator(reader io.Reader, writer *bytes.Buffer, currentYear in
 	fmt.Fprintln(writer, "It's", strconv.FormatInt(currentYear, 10)+",", "so you can retire in", strconv.FormatInt(retirementDate, 10)+".")
 }
 
+
+func main() {
+	RetirementCalculator(os.Stdin, os.Stdout, 2018)
+}
