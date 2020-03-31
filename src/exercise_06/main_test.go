@@ -11,14 +11,12 @@ import (
 	"../libs"
 )
 
-
-
 func RetirementCalculator(reader io.Reader, writer *bytes.Buffer, currentYear int64) {
 
-	bufReader := bufio.NewReader(reader);
+	bufReader := bufio.NewReader(reader)
 
-	currentAge, _ := libs.GetPromptedNumber(writer, bufReader, "")
-	retirementAge, _ := libs.GetPromptedNumber(writer, bufReader, "")
+	currentAge, _ := libs.GetPromptedNumber(writer, bufReader, "What is your current age? ")
+	retirementAge, _ := libs.GetPromptedNumber(writer, bufReader, "At what age would you like to retire? ")
 
 	numYears := retirementAge - currentAge
 
@@ -38,7 +36,6 @@ func Test40YearsLeft(t *testing.T) {
 	actual := string(writer.Bytes())
 	assert.Contains(t, actual, "You have 40 years left until you can retire.\n")
 }
-
 
 func TestUseCurrentAgeInComputation(t *testing.T) {
 	reader := io.Reader(strings.NewReader("35\n65\n"))
