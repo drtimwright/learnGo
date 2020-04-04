@@ -1,12 +1,14 @@
 package main
 
 import (
+	"bufio"
 	"bytes"
 	"fmt"
 	"github.com/stretchr/testify/assert"
 	"io"
 	"strings"
 	"testing"
+	"../libs"
 )
 
 func TestCanary(t *testing.T) {
@@ -14,7 +16,12 @@ func TestCanary(t *testing.T) {
 }
 
 func AreaOfARectangle(reader io.Reader, writer io.Writer) {
-	fmt.Fprintln(writer, "You entered dimensions of 15 feet by 20 feet.")
+	bufreader := bufio.NewReader(reader)
+
+	width, _ := libs.GetPromptedNumber(writer, bufreader, "")
+	height, _ := libs.GetPromptedNumber(writer, bufreader, "")
+
+	fmt.Fprintln(writer, "You entered dimensions of", width, "feet by", height, "feet.")
 }
 
 func TestPrintDimensions(t *testing.T) {
@@ -25,4 +32,14 @@ func TestPrintDimensions(t *testing.T) {
 
 	actual := string(writer.Bytes())
 	assert.Contains(t, actual, "You entered dimensions of 15 feet by 20 feet.\n")
+}
+
+func TestPrintDimensionsDifferentSize(t *testing.T) {
+	reader := io.Reader(strings.NewReader("10\n30\n"))
+	writer := new(bytes.Buffer)
+
+	AreaOfARectangle(reader, writer)
+
+	actual := string(writer.Bytes())
+	assert.Contains(t, actual, "You entered dimensions of 10 feet by 30 feet.\n")
 }
