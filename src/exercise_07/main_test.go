@@ -18,8 +18,8 @@ func TestCanary(t *testing.T) {
 func AreaOfARectangle(reader io.Reader, writer io.Writer) {
 	bufreader := bufio.NewReader(reader)
 
-	width, _ := libs.GetPromptedNumber(writer, bufreader, "")
-	height, _ := libs.GetPromptedNumber(writer, bufreader, "")
+	width, _ := libs.GetPromptedNumber(writer, bufreader, "What is the length of the room in feet? ")
+	height, _ := libs.GetPromptedNumber(writer, bufreader, "What is the width of the room in feet? ")
 
 	fmt.Fprintln(writer, "You entered dimensions of", width, "feet by", height, "feet.")
 }
