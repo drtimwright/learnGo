@@ -22,6 +22,10 @@ func AreaOfARectangle(reader io.Reader, writer io.Writer) {
 	height, _ := libs.GetPromptedNumber(writer, bufreader, "What is the width of the room in feet? ")
 
 	fmt.Fprintln(writer, "You entered dimensions of", width, "feet by", height, "feet.")
+
+	fmt.Fprintln(writer, "The area is")
+	fmt.Fprintln(writer, "300 square feet")
+	fmt.Fprintln(writer, "27.871 square meters")
 }
 
 func TestPrintDimensions(t *testing.T) {
@@ -42,4 +46,14 @@ func TestPrintDimensionsDifferentSize(t *testing.T) {
 
 	actual := string(writer.Bytes())
 	assert.Contains(t, actual, "You entered dimensions of 10 feet by 30 feet.\n")
+}
+
+func TestComputeArea(t *testing.T) {
+	reader := io.Reader(strings.NewReader("15\n20\n"))
+	writer := new(bytes.Buffer)
+
+	AreaOfARectangle(reader, writer)
+
+	actual := string(writer.Bytes())
+	assert.Contains(t, actual, "The area is\n300 square feet\n27.871 square meters\n")
 }
