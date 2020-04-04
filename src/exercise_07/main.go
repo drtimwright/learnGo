@@ -8,6 +8,8 @@ import (
 	"os"
 )
 
+const SQ_FEET_TO_METERS_CONVERSION_FACTOR = 0.09290304
+
 func AreaOfARectangle(reader io.Reader, writer io.Writer) {
 	bufreader := bufio.NewReader(reader)
 
@@ -15,7 +17,7 @@ func AreaOfARectangle(reader io.Reader, writer io.Writer) {
 	height, _ := libs.GetPromptedNumber(writer, bufreader, "What is the width of the room in feet? ")
 
 	areaFeet := width * height;
-	areaMeters := float64(areaFeet) * 0.09290304
+	areaMeters := float64(areaFeet) * SQ_FEET_TO_METERS_CONVERSION_FACTOR
 
 	fmt.Fprintln(writer, "You entered dimensions of", width, "feet by", height, "feet.")
 
