@@ -16,7 +16,7 @@ func AreaOfARectangle(reader io.Reader, writer io.Writer) {
 	width, _ := libs.GetPromptedNumber(writer, bufreader, "What is the length of the room in feet? ")
 	height, _ := libs.GetPromptedNumber(writer, bufreader, "What is the width of the room in feet? ")
 
-	areaFeet := width * height;
+	areaFeet := width * height
 	areaMeters := float64(areaFeet) * SQ_FEET_TO_METERS_CONVERSION_FACTOR
 
 	fmt.Fprintln(writer, "You entered dimensions of", width, "feet by", height, "feet.")
@@ -26,9 +26,6 @@ func AreaOfARectangle(reader io.Reader, writer io.Writer) {
 	fmt.Fprintf(writer, "%.3f square meters\n", areaMeters)
 }
 
-
 func main() {
 	AreaOfARectangle(os.Stdin, os.Stdout)
 }
-
-
