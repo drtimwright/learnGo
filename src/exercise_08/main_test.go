@@ -61,4 +61,5 @@ func TestDiffNumSlicesStillNoRemainder(t *testing.T) {
 
 	actual := string(writer.Bytes())
 	assert.Contains(t, actual, "Each person gets 4 pieces of pizza.\n")
+	assert.Contains(t, actual, "There are 0 leftover pieces.\n")
 }
