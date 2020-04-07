@@ -18,11 +18,12 @@ func SlicesOfPizza(reader io.Reader, writer io.Writer) {
 	numPizzas, _ := libs.GetPromptedNumber(writer, bufReader, "How many pizzas do you have? ")
 
 	numSlices := numPizzas * 8 / numPeople
+	remainder := numPizzas * 8 % numPeople
 
 	fmt.Fprintln(writer, "")
 	fmt.Fprintln(writer, numPeople, "people with", numPizzas, "pizzas")
 	fmt.Fprintln(writer, "Each person gets", numSlices, "pieces of pizza.")
-	fmt.Fprintln(writer, "There are 0 leftover pieces.")
+	fmt.Fprintln(writer, "There are", remainder, "leftover pieces.")
 }
 
 func TestCanary(t *testing.T) {
@@ -62,4 +63,15 @@ func TestDiffNumSlicesStillNoRemainder(t *testing.T) {
 	actual := string(writer.Bytes())
 	assert.Contains(t, actual, "Each person gets 4 pieces of pizza.\n")
 	assert.Contains(t, actual, "There are 0 leftover pieces.\n")
+}
+
+func TestDiffNumSlicesStillWithRemainder(t *testing.T) {
+	reader := io.Reader(strings.NewReader("3\n1\n"))
+	writer := new(bytes.Buffer)
+
+	SlicesOfPizza(reader, writer)
+
+	actual := string(writer.Bytes())
+	assert.Contains(t, actual, "Each person gets 2 pieces of pizza.\n")
+	assert.Contains(t, actual, "There are 2 leftover pieces.\n")
 }
