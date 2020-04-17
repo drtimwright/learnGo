@@ -1,28 +1,12 @@
 package main
 
 import (
-	"bufio"
 	"bytes"
-	"fmt"
 	"github.com/stretchr/testify/assert"
 	"io"
-	"math"
 	"strings"
 	"testing"
-	"../libs"
 )
-
-func GallonsOfPaint(reader io.Reader, writer io.Writer) {
-	bufReader := bufio.NewReader(reader)
-
-	width, _ := libs.GetPromptedNumber(writer, bufReader, "What is the room width? ")
-	length, _ := libs.GetPromptedNumber(writer, bufReader, "What is the room length? ")
-
-	area := width * length
-	paint := math.Ceil(float64(area) / float64(350))
-
-	fmt.Fprintln(writer, "You will need to purchase", paint, "gallons of paint to cover", area, "square feet.")
-}
 
 func TestCanary(t *testing.T) {
 	assert.Equal(t, true, true)
