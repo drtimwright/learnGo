@@ -6,6 +6,7 @@ import (
 	"fmt"
 	"github.com/stretchr/testify/assert"
 	"io"
+	"math"
 	"strings"
 	"testing"
 	"../libs"
@@ -18,8 +19,9 @@ func GallonsOfPaint(reader io.Reader, writer io.Writer) {
 	length, _ := libs.GetPromptedNumber(writer, bufReader, "What is the room length? ")
 
 	area := width * length
+	paint := math.Ceil(float64(area) / float64(350))
 
-	fmt.Fprintln(writer, "You will need to purchase 1 gallons of paint to cover", area, "square feet.")
+	fmt.Fprintln(writer, "You will need to purchase", paint, "gallons of paint to cover", area, "square feet.")
 }
 
 func TestCanary(t *testing.T) {
@@ -46,4 +48,15 @@ func TestTwoByTwoRoom(t *testing.T) {
 
 	actual := string(writer.Bytes())
 	assert.Contains(t, actual, "You will need to purchase 1 gallons of paint to cover 4 square feet.")
+}
+
+func TestTwoGallonRoomRoom(t *testing.T) {
+
+	reader := io.Reader(strings.NewReader("200\n2\n"))
+	writer := new(bytes.Buffer)
+
+	GallonsOfPaint(reader, writer)
+
+	actual := string(writer.Bytes())
+	assert.Contains(t, actual, "You will need to purchase 2 gallons of paint to cover 400 square feet.")
 }
